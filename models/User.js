@@ -23,7 +23,15 @@ exports.findByEmail = (email) => {
 exports.find = (id) => {
   return knex
     .select('*')
-    .from('users')
+    .from('user')
+    .where('id', id)
+    .first();
+}
+
+exports.findById = (id) => {
+  return knex
+    .select('*')
+    .from('user')
     .where('id', id)
     .first();
 }

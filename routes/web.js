@@ -6,8 +6,6 @@ let authValidator = require('../validators/AuthValidator')
 let passport = require('passport');
 let dashboardController = require('../controllers/DashboardController');
 
-router.get('/app/dashboard', usersController.index);
-
 router.get('/app/users', authValidator.admin ,usersController.list)
 
 router.get('/', homepageController.index);

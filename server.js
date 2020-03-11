@@ -1,6 +1,7 @@
 let express = require('express');
 let app = express();
 let webRoutes = require('./routes/web');
+let appRoutes = require('./routes/app');
 
 //Para redireccionar con el error del validator
 let cookieParser = require('cookie-parser');
@@ -8,9 +9,6 @@ let session = require('express-session');
 let flash = require('express-flash');
 let sessionStore = new session.MemoryStore;
 let passport = require('passport')
-require('./configs/passport');
-app.use(passport.initialize());
-app.use(passport.session());
 
 /**
  * Configurations
@@ -45,10 +43,15 @@ app.use(session({
 }));
 app.use(flash());
 
+require('./configs/passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 /**
  * Routes
  */
 app.use('/', webRoutes);
+app.use('/app', appRoutes);
 
 /**
  * App Init
