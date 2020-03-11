@@ -2,6 +2,16 @@ let express = require('express');
 let app = express();
 let webRoutes = require('./routes/web');
 
+//Para redireccionar con el error del validator
+let cookieParser = require('cookie-parser');
+let session = require('express-session');
+let flash = require('express-flash');
+let sessionStore = new session.MemoryStore;
+let passport = require('passport')
+require('./configs/passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 /**
  * Configurations
  */
@@ -21,6 +31,19 @@ let hbs = exphbs.create({
 });
 app.engine(extNameHbs, hbs.engine);
 app.set('view engine', extNameHbs);
+
+//Para recibir input del usuario
+app.use(express.urlencoded({extended:true}))
+
+app.use(cookieParser());
+app.use(session({
+  cookie: { maxAge: 60000 },
+  store: sessionStore,
+  saveUninitialized: true,
+  resave: 'true',
+  secret: appConfig.secret
+}));
+app.use(flash());
 
 /**
  * Routes

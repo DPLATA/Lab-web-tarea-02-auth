@@ -3,5 +3,5 @@ exports.login = (req, res) => {
 }
 
 exports.register = (req, res) => {
-  res.render('auth/register', { layout: 'auth' });
+  res.render('auth/register', { layout: 'auth', errors: req.flash('errors') });
 }
