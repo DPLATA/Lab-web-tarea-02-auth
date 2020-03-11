@@ -13,5 +13,17 @@ exports.store = [
     } else {
       return value;
     }
-  })
+  }),
+  //verifica el rol
+  check('role').notEmpty()
 ];
+
+exports.admin = [
+  check('role').custom((value, {req, loc, path}) => {
+    if (value !== 'admin') {
+      throw new Error("Authorized access prohibited");
+    } else {
+      return value;
+    }
+  })
+]

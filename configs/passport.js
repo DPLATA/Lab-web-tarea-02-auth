@@ -19,6 +19,7 @@ const verifyCallback = (email, password, done) => {
       // inicia la sesión
       let isValid = bcrypt.compareSync(password, user.password);
       if (isValid) {
+        //console.log(user);
         return done(null, user);
       } else {
         return done(null, false);
@@ -30,6 +31,7 @@ const verifyCallback = (email, password, done) => {
 }
 
 const strategy  = new LocalStrategy(userTableFields, verifyCallback);
+
 
 passport.use(strategy);
 

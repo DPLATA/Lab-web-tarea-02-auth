@@ -34,7 +34,8 @@ exports.store = (req, res) => {
   let user = {
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role
   };
   // Crea el usuario
   UserModel.create(user)

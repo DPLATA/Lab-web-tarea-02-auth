@@ -10,13 +10,22 @@ exports.create = (user) => {
     .insert({
       name: user.name,
       email: user.email,
-      password: pass
+      password: pass,
+      role: user.role
     });
 }
 
 exports.findByEmail = (email) => {
   //console.log(knex('user').where({ email: email }));
   return knex('user').where({ 'email': email }).first()
+}
+
+exports.find = (id) => {
+  return knex
+    .select('*')
+    .from('users')
+    .where('id', id)
+    .first();
 }
 
 // Obtiene todos los productos en la base
