@@ -31,7 +31,5 @@ exports.find = (id) => {
 // Obtiene todos los productos en la base
 exports.all = () => {
   // Realiza la consulta dentro de knex
-  return knex
-    .select('*')
-    .from('user');
+  return knex('user');
 }

@@ -41,10 +41,25 @@ exports.store = (req, res) => {
   UserModel.create(user)
     .then((id) => {
       // Al finalizar la creación, reenvía al usuario a la página
-      console.log(id);
+      //console.log(id);
       // inicial
       res.redirect('/');
     }).catch((error) => console.log(error));
+}
+
+exports.list = (req, res) => {
+  UserModel.all()
+  .then((data) => {
+    let users = data
+    res.render('dashboard/users', { user: users })
+  }).catch((error) => console.log(error));
+}
+
+//No muestra el nombre del usuario.
+exports.index = (req, res) => {
+  let user = req.body;
+  console.log('usuario: ', req.user);
+  res.render('dashboard/index', {user: user});
 }
 
 // controllers/UsersController.js
