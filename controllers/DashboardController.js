@@ -1,10 +1,14 @@
+let UserModel = require('../models/User')
+
 exports.index = (req, res) => {
   let user = req.user;
   res.render('dashboard/index', {user: user});
 }
 
-exports.users = (req, res) => {
-  let user = req.body;
-  console.log('usuario: ', req.user);
-  res.render('dashboard/users', {user: user});
+exports.list = (req, res) => {
+  UserModel.all()
+  .then((data) => {
+    let users = data
+    res.render('dashboard/users', { user: users })
+  }).catch((error) => console.log(error));
 }

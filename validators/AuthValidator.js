@@ -18,12 +18,16 @@ exports.store = [
   check('role').notEmpty()
 ];
 
-exports.admin = [
-  check('role').custom((value, {req, loc, path}) => {
-    if (value !== 'admin') {
-      throw new Error("Authorized access prohibited");
-    } else {
-      return value;
+exports.isAdmin = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    //console.log(req);
+    //console.log(req.user.role);
+    if(req.user.role != 'admin'){
+      res.status(403).json({msg: 'Unauthorized access prohibited'})
     }
-  })
-]
+    next();
+  } else {
+    //res.status(401).json({ msg: 'You are not authorized to view this resource' });
+    res.redirect(('/login'))
+  }
+}

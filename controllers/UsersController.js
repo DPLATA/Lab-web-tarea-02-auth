@@ -47,14 +47,6 @@ exports.store = (req, res) => {
     }).catch((error) => console.log(error));
 }
 
-exports.list = (req, res) => {
-  UserModel.all()
-  .then((data) => {
-    let users = data
-    res.render('dashboard/users', { user: users })
-  }).catch((error) => console.log(error));
-}
-
 //No muestra el nombre del usuario.
 exports.index = (req, res) => {
   let user = req.body;

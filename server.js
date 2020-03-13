@@ -9,6 +9,7 @@ let session = require('express-session');
 let flash = require('express-flash');
 let sessionStore = new session.MemoryStore;
 let passport = require('passport')
+let authMiddleware = require('./middlewares/AuthMiddleware')
 
 /**
  * Configurations
@@ -51,7 +52,7 @@ app.use(passport.session());
  * Routes
  */
 app.use('/', webRoutes);
-app.use('/app', appRoutes);
+app.use('/app', authMiddleware.isAuth ,appRoutes);
 
 /**
  * App Init
